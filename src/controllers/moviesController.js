@@ -64,12 +64,18 @@ const moviesController = {
          return res.redirect("/movies")
         })
     },
-    edit: function(req, res) {
+    edit: async (req, res) => {
         // TODO
-        let Movie = db.Movie.findByPk(req.params.id);
-       // return res.send(Movie);
-        return res.render("moviesEdit",{
-        Movie})
+
+        try {
+            let Movie = await db.Movie.findByPk(req.params.id);
+       
+            return res.render("moviesEdit",{
+            Movie}) 
+        } catch (error) {
+            console.log(error)
+        }
+        
     },
     update: function (req,res) {
         // TODO
